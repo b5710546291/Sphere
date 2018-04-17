@@ -7,6 +7,8 @@ public class G001_Controller : MonoBehaviour
     int currentLane = 0;
     bool jumping = false;
 
+    public Animator anim;
+
 
     // Use this for initialization
     void Start()
@@ -20,23 +22,27 @@ public class G001_Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > -1)
         {
 
-            transform.Translate(Vector3.left);
+            //transform.Translate(Vector3.left);
             currentLane--;
+            anim.SetInteger("Lane", currentLane);
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < 1)
         {
-            transform.Translate(Vector3.right);
+            //transform.Translate(Vector3.right);
             currentLane++;
+            anim.SetInteger("Lane", currentLane);
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) && !jumping)
         {
             jumping = true;
-            transform.Translate(Vector3.up, Space.World);
+            anim.SetBool("Jump", jumping);
+            //transform.Translate(Vector3.up, Space.World);
         }
         else if (Input.GetKeyUp(KeyCode.UpArrow) && jumping)
         {
             jumping = false;
-            transform.Translate(Vector3.down, Space.World);
+            anim.SetBool("Jump", jumping);
+            //transform.Translate(Vector3.down, Space.World);
         }
     }
 }

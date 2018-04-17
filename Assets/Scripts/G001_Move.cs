@@ -16,7 +16,7 @@ public class G001_Move : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.forward * -G001_GameController.speed * Time.deltaTime, Space.World);
-        if (transform.position.z < -1)
+        if (transform.position.z < -10)
         {
             Destroy(this.gameObject);
         }

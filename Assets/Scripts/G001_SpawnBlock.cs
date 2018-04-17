@@ -5,10 +5,17 @@ using UnityEngine;
 public class G001_SpawnBlock : MonoBehaviour
 {
     public GameObject BoxPref;
-    public List<GameObject> T1ObsPrefab;
-    public List<GameObject> T2ObsPrefab;
+    public GameObject CoinPref;
+    public GameObject TopObsPref;
+    public GameObject BotObsPref;
     float count = 0;
     int nextGen = 0;
+    GameObject PrevBox;
+    int prevCoinI = 0;
+    int prevCoinJ = 1;
+    List<Vector2> idList = new List<Vector2>();
+
+
 
     // Use this for initialization
     void Start()
@@ -26,32 +33,127 @@ public class G001_SpawnBlock : MonoBehaviour
 
     private void Awake()
     {
+        PrevBox = Instantiate(BoxPref, Vector3.zero, Quaternion.identity);
+        for (int i = 0; i< 10; i++)
+        {
+            Vector3 pos = new Vector3(PrevBox.transform.position.x, PrevBox.transform.position.y, PrevBox.transform.position.z+2);
+            PrevBox = Instantiate(BoxPref, pos, Quaternion.identity);
+        }
         StartCoroutine("Spawning");
+        
     }
 
     IEnumerator Spawning()
     {
-        if(nextGen <= 0)
+        
+        Vector3 pos = new Vector3(PrevBox.transform.position.x, PrevBox.transform.position.y, PrevBox.transform.position.z + 2 );
+        PrevBox = Instantiate(BoxPref, pos, Quaternion.identity);
+        nextGen = 1;
+        idList.Clear();
+        for (int i = 0; i < 3; i++)
         {
-            float rand = Random.Range(0f,1f)*100;
-            if (rand < 75)
+
+            for (int j = 0; j < 2; j++)
             {
-                Instantiate(BoxPref, transform.position, Quaternion.identity);
-                nextGen = 1;
-            } else if (rand < 90) 
-            {
-                int randI = Random.Range(0, T1ObsPrefab.Count);
-                Instantiate(T1ObsPrefab[randI], transform.position, Quaternion.identity);
-                nextGen = 4;
-            } else
-            {
-                int randI = Random.Range(0, T2ObsPrefab.Count);
-                Instantiate(T2ObsPrefab[randI], transform.position, Quaternion.identity);
-                nextGen = 8;
+                idList.Add(new Vector2(i,j));
             }
         }
+        idList.Remove(new Vector2(prevCoinI + 1, prevCoinJ - 1));
+        GameObject Coin = Instantiate(CoinPref, PrevBox.transform);
+        Coin.transform.Translate(new Vector3(prevCoinI,prevCoinJ -1 ,0),Space.World);
+
+        
+        float horiRand = Random.Range(0f, 100f);
+        float vertiRand = Random.Range(0f, 100f);
+        int tempI = prevCoinI;
+        int tempJ = prevCoinJ;
+        if (prevCoinI < 0)
+        {
+            if(horiRand <= 40)
+            {
+                prevCoinI++; 
+            }
+        } else if (prevCoinI == 0)
+        {
+            if(horiRand <= 20)
+            {
+                prevCoinI--;
+            } else if(horiRand <= 40)
+            {
+                prevCoinI++;
+            }
+        } else if (prevCoinI > 0)
+        {
+            if (horiRand <= 40)
+            {
+                prevCoinI--;
+            }
+        }
+        if (tempI == prevCoinI)
+        {
+            if (prevCoinJ == 1)
+            {
+                if (vertiRand <= 40)
+                {
+                    prevCoinJ++;
+                }
+            }
+            else if (prevCoinJ == 2)
+            {
+                if (vertiRand <= 40)
+                {
+                    prevCoinJ--;
+                }
+            }
+        }
+        if (tempI != prevCoinI || tempJ != prevCoinJ)
+        {
+
+            idList.Remove(new Vector2(prevCoinI + 1, prevCoinJ - 1));
+            Coin = Instantiate(CoinPref, PrevBox.transform);
+            Coin.transform.Translate(new Vector3(prevCoinI, prevCoinJ - 1, 0), Space.World);
+        }
+
+        float obsRand = Random.Range(0f, 100f);
+        int currentCon = 80;
+
+        List<int> iList = new List<int>();
+        List<int> jList = new List<int>();
+
+        if ( obsRand <= currentCon)
+        {
+            bool spawnobs = true;
+            while (spawnobs)
+            {
+                if (idList.Count <= 0)
+                {
+                    break;
+                }
+                int spaRand = Random.Range(0, idList.Count);
+                if (idList[spaRand].y == 0)
+                {
+                    GameObject obs = Instantiate(BotObsPref, PrevBox.transform);
+                    obs.transform.Translate(new Vector3(idList[spaRand].x - 1, 0, 0), Space.World);
+                } else
+                {
+                    GameObject obs = Instantiate(TopObsPref, PrevBox.transform);
+                    obs.transform.Translate(new Vector3(idList[spaRand].x - 1, 1, 0), Space.World);
+                }
+                idList.RemoveAt(spaRand);
+                currentCon -= 20;
+                if (obsRand >= currentCon)
+                {
+                    spawnobs = false;
+                }
+                
+            }
+        }
+
+
+        
+                
+        
         yield return new WaitUntil(() => count >= 0.99);
-        nextGen--;
         count = 0;
         StartCoroutine("Spawning");
     }
