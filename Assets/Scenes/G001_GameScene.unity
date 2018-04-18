@@ -278,24 +278,6 @@ MonoBehaviour:
   CoinPref: {fileID: 1626914017113820, guid: 340eb0934d1281549b9c0c16b69ea2f9, type: 2}
   TopObsPref: {fileID: 1032259458271396, guid: 68d026b58a7e9944bb0fd1c8854516ed, type: 2}
   BotObsPref: {fileID: 1903635089676738, guid: 0cb29ccb245266b4989321588a0935f3, type: 2}
-  T1ObsPrefab:
-  - {fileID: 1864920111405204, guid: 9612fdc87b08dcb4fb5626b876b470c0, type: 2}
-  - {fileID: 1553942274296912, guid: d1960e1fe72b5cb49a8281a81bafded6, type: 2}
-  - {fileID: 1255549229690464, guid: 20adc62f8a13faa4498a3801fd940167, type: 2}
-  - {fileID: 1997475234996562, guid: 1149ce26f4870ba42aae61c3b99b2ad1, type: 2}
-  - {fileID: 1956791675252272, guid: 3e39c2c760c363a45bbab43ce40a3bae, type: 2}
-  - {fileID: 1095194805830318, guid: 7f4a257aad3e25b41baf29b412edf91f, type: 2}
-  - {fileID: 1450834222335336, guid: 4d711670add5d324c9760f16995b09ce, type: 2}
-  - {fileID: 1409813986920350, guid: 5a0f387d8b22c82419d11163609c1aa2, type: 2}
-  - {fileID: 1644446169677870, guid: aefc666c37520824caca5330b7e62d84, type: 2}
-  - {fileID: 1456055126473692, guid: 8797d2b346a0d994b9caa55b474321dd, type: 2}
-  T2ObsPrefab:
-  - {fileID: 1328161871983602, guid: bf0f047c0b1bd2241bc73c09f5598e27, type: 2}
-  - {fileID: 1634036459273474, guid: 08a6134733133794a80f4a0f54c2229b, type: 2}
-  - {fileID: 1692186160636374, guid: ff9d48f7437d8464db73ab0d0cf41789, type: 2}
-  - {fileID: 1458844456360502, guid: 87c9444aeb6b3ca4e97e852cacba6a64, type: 2}
-  - {fileID: 1314733465615054, guid: 148b06ac408292140b62fa90bfba3f2e, type: 2}
-  - {fileID: 1317606341441970, guid: 75880e79e49b7094b9f04b5b71e66e30, type: 2}
 --- !u!4 &120676233
 Transform:
   m_ObjectHideFlags: 0
@@ -737,7 +719,7 @@ ParticleSystemRenderer:
   m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
-  m_LengthScale: 4.31
+  m_LengthScale: 4
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_RenderAlignment: 0
@@ -809,7 +791,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1287044620
+  randomSeed: 1737305523
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4591,7 +4573,7 @@ ParticleSystemRenderer:
   m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
-  m_LengthScale: 4.31
+  m_LengthScale: 4
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_RenderAlignment: 0
@@ -4663,7 +4645,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -430731002
+  randomSeed: -5895234
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -11,6 +11,7 @@ public class G001_GameController : MonoBehaviour
     float speed_increase;
     public bool isOver;
     public GameObject deadPref;
+    
 
     public Text scoreText;
     public GameObject OverPanel;
