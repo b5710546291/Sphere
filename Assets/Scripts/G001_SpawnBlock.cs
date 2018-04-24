@@ -8,12 +8,14 @@ public class G001_SpawnBlock : MonoBehaviour
     public GameObject CoinPref;
     public GameObject TopObsPref;
     public GameObject BotObsPref;
-    float count = 0;
     int nextGen = 0;
     GameObject PrevBox;
     int prevCoinI = 0;
     int prevCoinJ = 1;
     List<Vector2> idList = new List<Vector2>();
+
+	public int maxBlock;
+	public GameObject blockColls;
 
 
 
@@ -26,15 +28,13 @@ public class G001_SpawnBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //Instantiate(BoxPref, transform.transform.position, Quaternion.identity);
-        count += Time.deltaTime * G001_GameController.speed;
+		
     }
 
     private void Awake()
     {
         PrevBox = Instantiate(BoxPref, Vector3.zero, Quaternion.identity);
-        for (int i = 0; i< 10; i++)
+        for (int i = 0; i< 5; i++)
         {
             Vector3 pos = new Vector3(PrevBox.transform.position.x, PrevBox.transform.position.y, PrevBox.transform.position.z+2);
             PrevBox = Instantiate(BoxPref, pos, Quaternion.identity);
@@ -110,8 +110,8 @@ public class G001_SpawnBlock : MonoBehaviour
         {
 
             idList.Remove(new Vector2(prevCoinI + 1, prevCoinJ - 1));
-            Coin = Instantiate(CoinPref, PrevBox.transform);
-            Coin.transform.Translate(new Vector3(prevCoinI, prevCoinJ - 1, 0), Space.World);
+            //Coin = Instantiate(CoinPref, PrevBox.transform);
+            //Coin.transform.Translate(new Vector3(prevCoinI, prevCoinJ - 1, 0), Space.World);
         }
 
         float obsRand = Random.Range(0f, 100f);
@@ -148,13 +148,12 @@ public class G001_SpawnBlock : MonoBehaviour
                 
             }
         }
-
+		PrevBox.transform.SetParent (blockColls.transform);
 
         
                 
         
-        yield return new WaitUntil(() => count >= 0.99);
-        count = 0;
+		yield return new WaitUntil(() => blockColls.transform.childCount < maxBlock);
         StartCoroutine("Spawning");
     }
 }

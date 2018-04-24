@@ -57,7 +57,7 @@ public class G001_GameController : MonoBehaviour
 
     public void GetPickUp()
     {
-        score += 30;
+        score += 50;
         scoreText.text = "Score: " + (int)score;
         textAnim.Play("ScorePickUp");
     }
