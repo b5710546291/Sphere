@@ -69,22 +69,22 @@ public class G001_SpawnBlock : MonoBehaviour
         int tempJ = prevCoinJ;
         if (prevCoinI < 0)
         {
-            if(horiRand <= 40)
+            if(horiRand <= 30)
             {
                 prevCoinI++; 
             }
         } else if (prevCoinI == 0)
         {
-            if(horiRand <= 20)
+            if(horiRand <= 15)
             {
                 prevCoinI--;
-            } else if(horiRand <= 40)
+            } else if(horiRand <= 30)
             {
                 prevCoinI++;
             }
         } else if (prevCoinI > 0)
         {
-            if (horiRand <= 40)
+            if (horiRand <= 30)
             {
                 prevCoinI--;
             }
@@ -93,14 +93,14 @@ public class G001_SpawnBlock : MonoBehaviour
         {
             if (prevCoinJ == 1)
             {
-                if (vertiRand <= 40)
+                if (vertiRand <= 30)
                 {
                     prevCoinJ++;
                 }
             }
             else if (prevCoinJ == 2)
             {
-                if (vertiRand <= 40)
+                if (vertiRand <= 30)
                 {
                     prevCoinJ--;
                 }
