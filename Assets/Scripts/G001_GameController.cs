@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+//using PlayFab;
+//using PlayFab.ClientModels;
+
 public class G001_GameController : MonoBehaviour
 {
     public static float speed = 4;
@@ -17,6 +20,7 @@ public class G001_GameController : MonoBehaviour
     public GameObject OverPanel;
     public Animator textAnim;
     public InputField nameToSave;
+    public string nameSave;
 
     // Use this for initialization
     void Start()
@@ -51,7 +55,7 @@ public class G001_GameController : MonoBehaviour
 
         scoreText.transform.parent.gameObject.SetActive(false);
         OverPanel.gameObject.SetActive(true);
-        OverPanel.transform.GetChild(1).GetComponent<Text>().text = "Your score: " + (int)score;
+        OverPanel.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Text>().text = "Your score: " + (int)score;
 
     }
 
@@ -64,85 +68,69 @@ public class G001_GameController : MonoBehaviour
 
     public void ReplayButton()
     {
-        print(nameToSave.text);
+        saveScore();
         SceneManager.LoadScene(1);
     }
 
     public void ExitButton()
     {
-        print(nameToSave.text);
+        saveScore();
         SceneManager.LoadScene(0);
     }
 
-    /**public void saveScore()
+    public void saveScore()
     {
-
-        if (isWorthy)
+        if (nameToSave.text == "")
         {
-
-            InputField field = happyText.gameObject.transform.GetChild(0).gameObject.GetComponent<InputField>(); ;
-
             nameSave = "Player";
-
-            if (field.text == "")
-            {
-
-
-
-            }
-            else
-            {
-
-                nameSave = field.text;
-
-            }
-
-
-
-            string nameTemp1 = PlayerPrefs.GetString("name" + saveTo, "Player");
-
-            int scoreTemp1 = PlayerPrefs.GetInt("score" + saveTo, 0);
-
-            string nameTemp2;
-
-            int scoreTemp2;
-
-
-
-            for (int i = saveTo - 1; i >= 1; i--)
-            {
-
-                nameTemp2 = PlayerPrefs.GetString("name" + i, "Player");
-
-                scoreTemp2 = PlayerPrefs.GetInt("score" + i, 0);
-
-                PlayerPrefs.SetString("name" + i, nameTemp1);
-
-                PlayerPrefs.SetInt("score" + i, scoreTemp1);
-
-                nameTemp1 = nameTemp2;
-
-                scoreTemp1 = scoreTemp2;
-
-
-
-            }
-
-
-
-            PlayerPrefs.SetInt("score" + saveTo, score);
-
-            PlayerPrefs.SetString("name" + saveTo, nameSave);
-
+        } else
+        {
+            nameSave = nameToSave.text;
         }
 
-        Sumitting();
 
+        int placeToSave = -1;
+        for(int i = 10; i >= 1 ; i--)
+        {
+            if(PlayerPrefs.GetInt("G001S" + i, 0) <= score)
+            {
+                placeToSave = i;
+            } else
+            {
+                break;
+            }
+        }
+
+        if(placeToSave > 0)
+        {
+
+            int scoreTemp = PlayerPrefs.GetInt("G001S" + placeToSave, 0);
+            string nameTemp = PlayerPrefs.GetString("G001N" + placeToSave, "Player");
+            PlayerPrefs.SetInt("G001S" + placeToSave, (int)score);
+            PlayerPrefs.SetString("G001N" + placeToSave, nameSave);
+
+            int scoreTemp2;
+            string nameTemp2;
+
+            for (int i = placeToSave + 1; i <= 10; i++)
+            {
+                scoreTemp2 = PlayerPrefs.GetInt("G001S" + i, 0);
+                nameTemp2 = PlayerPrefs.GetString("G001N" + i, "Player");
+                PlayerPrefs.SetInt("G001S" + i, scoreTemp);
+                PlayerPrefs.SetString("G001N" + i, nameTemp);
+                scoreTemp = scoreTemp2;
+                nameTemp = nameTemp2;
+            }
+        }
+        
+
+        //Sumitting();
+        
     }
 
 
 
-    private void Sumitting()
+    /**private void Sumitting()
     {
 
         PlayFabSettings.TitleId = "B0E0";
