@@ -38,7 +38,7 @@ public class G001_GameController : MonoBehaviour
         {
             score += speed * Time.deltaTime * 10;
             speed_increase += Time.deltaTime;
-            if (speed_increase > 5)
+            if (speed_increase > 4)
             {
                 speed += 0.1f;
                 speed_increase = 0;
